@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B34181001CD4522D00BB5FC1 /* Levels in Resources */ = {isa = PBXBuildFile; fileRef = B34180FF1CD4522D00BB5FC1 /* Levels */; };
+		B34181031CD452C300BB5FC1 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = B34181021CD452C300BB5FC1 /* Tile.m */; };
+		B34181061CD4628300BB5FC1 /* Swap.m in Sources */ = {isa = PBXBuildFile; fileRef = B34181051CD4628300BB5FC1 /* Swap.m */; };
 		B3C022391CD2FB10003153B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C022381CD2FB10003153B5 /* main.m */; };
 		B3C0223C1CD2FB10003153B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C0223B1CD2FB10003153B5 /* AppDelegate.m */; };
 		B3C0223F1CD2FB10003153B5 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C0223E1CD2FB10003153B5 /* GameScene.m */; };
@@ -40,6 +43,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B34180FF1CD4522D00BB5FC1 /* Levels */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Levels; sourceTree = "<group>"; };
+		B34181011CD452C300BB5FC1 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		B34181021CD452C300BB5FC1 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
+		B34181041CD4628300BB5FC1 /* Swap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Swap.h; sourceTree = "<group>"; };
+		B34181051CD4628300BB5FC1 /* Swap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Swap.m; sourceTree = "<group>"; };
 		B3C022341CD2FB10003153B5 /* CookieCrush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookieCrush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C022381CD2FB10003153B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B3C0223A1CD2FB10003153B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -114,22 +122,27 @@
 		B3C022361CD2FB10003153B5 /* CookieCrush */ = {
 			isa = PBXGroup;
 			children = (
-				B3C0226F1CD2FC38003153B5 /* Sprites.atlas */,
 				B3C0223A1CD2FB10003153B5 /* AppDelegate.h */,
 				B3C0223B1CD2FB10003153B5 /* AppDelegate.m */,
-				B3C0223D1CD2FB10003153B5 /* GameScene.h */,
-				B3C0223E1CD2FB10003153B5 /* GameScene.m */,
 				B3C022811CD3B854003153B5 /* Cookie.h */,
 				B3C022821CD3B854003153B5 /* Cookie.m */,
 				B3C022841CD3B9F2003153B5 /* Level.h */,
 				B3C022851CD3B9F2003153B5 /* Level.m */,
-				B3C022401CD2FB10003153B5 /* GameScene.sks */,
+				B34181011CD452C300BB5FC1 /* Tile.h */,
+				B34181021CD452C300BB5FC1 /* Tile.m */,
+				B3C0223D1CD2FB10003153B5 /* GameScene.h */,
+				B3C0223E1CD2FB10003153B5 /* GameScene.m */,
+				B34181041CD4628300BB5FC1 /* Swap.h */,
+				B34181051CD4628300BB5FC1 /* Swap.m */,
 				B3C022421CD2FB10003153B5 /* GameViewController.h */,
 				B3C022431CD2FB10003153B5 /* GameViewController.m */,
-				B3C022451CD2FB10003153B5 /* Main.storyboard */,
-				B3C022481CD2FB10003153B5 /* Assets.xcassets */,
-				B3C0224A1CD2FB10003153B5 /* LaunchScreen.storyboard */,
 				B3C0224D1CD2FB10003153B5 /* Info.plist */,
+				B3C022401CD2FB10003153B5 /* GameScene.sks */,
+				B3C0224A1CD2FB10003153B5 /* LaunchScreen.storyboard */,
+				B3C022451CD2FB10003153B5 /* Main.storyboard */,
+				B34180FF1CD4522D00BB5FC1 /* Levels */,
+				B3C022481CD2FB10003153B5 /* Assets.xcassets */,
+				B3C0226F1CD2FC38003153B5 /* Sprites.atlas */,
 				B3C022371CD2FB10003153B5 /* Supporting Files */,
 			);
 			path = CookieCrush;
@@ -267,6 +280,7 @@
 				B3C022411CD2FB10003153B5 /* GameScene.sks in Resources */,
 				B3C0224C1CD2FB10003153B5 /* LaunchScreen.storyboard in Resources */,
 				B3C022491CD2FB10003153B5 /* Assets.xcassets in Resources */,
+				B34181001CD4522D00BB5FC1 /* Levels in Resources */,
 				B3C022471CD2FB10003153B5 /* Main.storyboard in Resources */,
 				B3C022701CD2FC38003153B5 /* Sprites.atlas in Resources */,
 			);
@@ -297,7 +311,9 @@
 				B3C022441CD2FB10003153B5 /* GameViewController.m in Sources */,
 				B3C0223C1CD2FB10003153B5 /* AppDelegate.m in Sources */,
 				B3C0223F1CD2FB10003153B5 /* GameScene.m in Sources */,
+				B34181061CD4628300BB5FC1 /* Swap.m in Sources */,
 				B3C022391CD2FB10003153B5 /* main.m in Sources */,
+				B34181031CD452C300BB5FC1 /* Tile.m in Sources */,
 				B3C022831CD3B854003153B5 /* Cookie.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -524,6 +540,7 @@
 				B3C022681CD2FB10003153B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3C022691CD2FB10003153B5 /* Build configuration list for PBXNativeTarget "CookieCrushTests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +549,7 @@
 				B3C0226B1CD2FB10003153B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3C0226C1CD2FB10003153B5 /* Build configuration list for PBXNativeTarget "CookieCrushUITests" */ = {
 			isa = XCConfigurationList;
@@ -540,6 +558,7 @@
 				B3C0226E1CD2FB10003153B5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

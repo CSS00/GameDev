@@ -40,22 +40,6 @@
 
 - (void)viewDidLoad
 {
-//    [super viewDidLoad];
-//
-//    // Configure the view.
-//    SKView * skView = (SKView *)self.view;
-//    skView.showsFPS = YES;
-//    skView.showsNodeCount = YES;
-//    /* Sprite Kit applies additional optimizations to improve rendering performance */
-//    skView.ignoresSiblingOrder = YES;
-//    
-//    // Create and configure the scene.
-//    GameScene *scene = [GameScene unarchiveFromFile:@"GameScene"];
-//    scene.scaleMode = SKSceneScaleModeAspectFill;
-//    
-//    // Present the scene.
-//    [skView presentScene:scene];
-//
     // my code starts here
     [super viewDidLoad];
     
@@ -68,8 +52,20 @@
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Load the level.
-    self.level = [[Level alloc] init];
+    self.level = [[Level alloc] initWithFile:@"Levels/Level_1"];
     self.scene.level = self.level;
+    [self.scene addTiles];
+    
+    id block = ^(Swap *swap) {
+        self.view.userInteractionEnabled = NO;
+        
+        [self.level performSwap:swap];
+        [self.scene animateSwap:swap completion:^{
+            self.view.userInteractionEnabled = YES;
+        }];
+    };
+    
+    self.scene.swipeHandler = block;
     
     // Present the scene.
     [skView presentScene:self.scene];
