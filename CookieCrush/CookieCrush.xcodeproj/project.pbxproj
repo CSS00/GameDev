@@ -10,6 +10,7 @@
 		B34181001CD4522D00BB5FC1 /* Levels in Resources */ = {isa = PBXBuildFile; fileRef = B34180FF1CD4522D00BB5FC1 /* Levels */; };
 		B34181031CD452C300BB5FC1 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = B34181021CD452C300BB5FC1 /* Tile.m */; };
 		B34181061CD4628300BB5FC1 /* Swap.m in Sources */ = {isa = PBXBuildFile; fileRef = B34181051CD4628300BB5FC1 /* Swap.m */; };
+		B34181081CD5313700BB5FC1 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = B34181071CD5313700BB5FC1 /* Sounds */; };
 		B3C022391CD2FB10003153B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C022381CD2FB10003153B5 /* main.m */; };
 		B3C0223C1CD2FB10003153B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C0223B1CD2FB10003153B5 /* AppDelegate.m */; };
 		B3C0223F1CD2FB10003153B5 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C0223E1CD2FB10003153B5 /* GameScene.m */; };
@@ -48,6 +49,7 @@
 		B34181021CD452C300BB5FC1 /* Tile.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tile.m; sourceTree = "<group>"; };
 		B34181041CD4628300BB5FC1 /* Swap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Swap.h; sourceTree = "<group>"; };
 		B34181051CD4628300BB5FC1 /* Swap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Swap.m; sourceTree = "<group>"; };
+		B34181071CD5313700BB5FC1 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
 		B3C022341CD2FB10003153B5 /* CookieCrush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookieCrush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C022381CD2FB10003153B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B3C0223A1CD2FB10003153B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				B3C022401CD2FB10003153B5 /* GameScene.sks */,
 				B3C0224A1CD2FB10003153B5 /* LaunchScreen.storyboard */,
 				B3C022451CD2FB10003153B5 /* Main.storyboard */,
+				B34181071CD5313700BB5FC1 /* Sounds */,
 				B34180FF1CD4522D00BB5FC1 /* Levels */,
 				B3C022481CD2FB10003153B5 /* Assets.xcassets */,
 				B3C0226F1CD2FC38003153B5 /* Sprites.atlas */,
@@ -283,6 +286,7 @@
 				B34181001CD4522D00BB5FC1 /* Levels in Resources */,
 				B3C022471CD2FB10003153B5 /* Main.storyboard in Resources */,
 				B3C022701CD2FC38003153B5 /* Sprites.atlas in Resources */,
+				B34181081CD5313700BB5FC1 /* Sounds in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -24,9 +24,23 @@ static const CGFloat TileHeight = 36.0;
 @property (assign, nonatomic) NSInteger swipeFromRow;
 @property (strong, nonatomic) SKSpriteNode *selectionSprite;
 
+@property (strong, nonatomic) SKAction *swapSound;
+@property (strong, nonatomic) SKAction *invalidSwapSound;
+@property (strong, nonatomic) SKAction *matchSound;
+@property (strong, nonatomic) SKAction *fallingCookieSound;
+@property (strong, nonatomic) SKAction *addCookieSound;
+
 @end
 
 @implementation GameScene
+
+- (void)preloadResources {
+    self.swapSound = [SKAction playSoundFileNamed:@"Sounds/Chomp.wav" waitForCompletion:NO];
+    self.invalidSwapSound = [SKAction playSoundFileNamed:@"Sounds/Error.wav" waitForCompletion:NO];
+    self.matchSound = [SKAction playSoundFileNamed:@"Sounds/Ka-Ching.wav" waitForCompletion:NO];
+    self.fallingCookieSound = [SKAction playSoundFileNamed:@"Sounds/Scrape.wav" waitForCompletion:NO];
+    self.addCookieSound = [SKAction playSoundFileNamed:@"Sounds/Drip.wav" waitForCompletion:NO];
+}
 
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
@@ -148,6 +162,8 @@ static const CGFloat TileHeight = 36.0;
         self.swipeFromColumn = self.swipeFromRow = NSNotFound;
         
         self.selectionSprite = [SKSpriteNode node];
+        
+        [self preloadResources];
     }
     return self;
 }
@@ -211,6 +227,26 @@ static const CGFloat TileHeight = 36.0;
     SKAction *moveB = [SKAction moveTo:swap.cookieA.sprite.position duration:Duration];
     moveB.timingMode = SKActionTimingEaseOut;
     [swap.cookieB.sprite runAction:moveB];
+    // make some noise
+    [self runAction:self.swapSound];
+}
+
+- (void)animateInvalidSwap:(Swap *)swap completion:(dispatch_block_t)completion {
+    swap.cookieA.sprite.zPosition = 100;
+    swap.cookieB.sprite.zPosition = 90;
+    
+    const NSTimeInterval Duration = 0.2;
+    
+    SKAction *moveA = [SKAction moveTo:swap.cookieB.sprite.position duration:Duration];
+    moveA.timingMode = SKActionTimingEaseOut;
+    
+    SKAction *moveB = [SKAction moveTo:swap.cookieA.sprite.position duration:Duration];
+    moveB.timingMode = SKActionTimingEaseOut;
+    
+    [swap.cookieA.sprite runAction:[SKAction sequence:@[moveA, moveB, [SKAction runBlock:completion]]]];
+    [swap.cookieB.sprite runAction:[SKAction sequence:@[moveB, moveA]]];
+    // make some noise
+    [self runAction:self.invalidSwapSound];
 }
 
 - (void)showSelectionIndicatorForCookie:(Cookie *)cookie {

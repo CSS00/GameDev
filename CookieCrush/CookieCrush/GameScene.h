@@ -27,4 +27,6 @@
 
 - (void)animateSwap:(Swap *)swap completion:(dispatch_block_t)completion;
 
+- (void)animateInvalidSwap:(Swap *)swap completion:(dispatch_block_t)completion;
+
 @end
