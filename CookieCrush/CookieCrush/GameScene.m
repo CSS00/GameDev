@@ -22,6 +22,7 @@ static const CGFloat TileHeight = 36.0;
 @property (strong, nonatomic) SKNode *tilesLayer;
 @property (assign, nonatomic) NSInteger swipeFromColumn;
 @property (assign, nonatomic) NSInteger swipeFromRow;
+@property (strong, nonatomic) SKSpriteNode *selectionSprite;
 
 @end
 
@@ -30,26 +31,6 @@ static const CGFloat TileHeight = 36.0;
 -(void)didMoveToView:(SKView *)view {
     /* Setup your scene here */
 }
-
-//-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-//    /* Called when a touch begins */
-//    
-//    for (UITouch *touch in touches) {
-//        CGPoint location = [touch locationInNode:self];
-//        
-//        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Spaceship"];
-//        
-//        sprite.xScale = 0.5;
-//        sprite.yScale = 0.5;
-//        sprite.position = location;
-//        
-//        SKAction *action = [SKAction rotateByAngle:M_PI duration:1];
-//        
-//        [sprite runAction:[SKAction repeatActionForever:action]];
-//        
-//        [self addChild:sprite];
-//    }
-//}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     // 1
@@ -63,7 +44,7 @@ static const CGFloat TileHeight = 36.0;
         // 3
         Cookie *cookie = [self.level cookieAtColumn:column row:row];
         if (cookie != nil) {
-            
+            [self showSelectionIndicatorForCookie:cookie];
             // 4
             self.swipeFromColumn = column;
             self.swipeFromRow = row;
@@ -97,7 +78,7 @@ static const CGFloat TileHeight = 36.0;
         // 4
         if (horzDelta != 0 || vertDelta != 0) {
             [self trySwapHorizontal:horzDelta vertical:vertDelta];
-            
+            [self hideSelectionIndicator];
             // 5
             self.swipeFromColumn = NSNotFound;
         }
@@ -105,6 +86,9 @@ static const CGFloat TileHeight = 36.0;
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    if (self.selectionSprite.parent != nil && self.swipeFromColumn != NSNotFound) {
+        [self hideSelectionIndicator];
+    }
     self.swipeFromColumn = self.swipeFromRow = NSNotFound;
 }
 
@@ -162,6 +146,8 @@ static const CGFloat TileHeight = 36.0;
         self.cookiesLayer.position = layerPosition;
         [self.gameLayer addChild:self.cookiesLayer];
         self.swipeFromColumn = self.swipeFromRow = NSNotFound;
+        
+        self.selectionSprite = [SKSpriteNode node];
     }
     return self;
 }
@@ -225,6 +211,26 @@ static const CGFloat TileHeight = 36.0;
     SKAction *moveB = [SKAction moveTo:swap.cookieA.sprite.position duration:Duration];
     moveB.timingMode = SKActionTimingEaseOut;
     [swap.cookieB.sprite runAction:moveB];
+}
+
+- (void)showSelectionIndicatorForCookie:(Cookie *)cookie {
+    // If the selection indicator is still visible, then first remove it.
+    if (self.selectionSprite.parent != nil) {
+        [self.selectionSprite removeFromParent];
+    }
+    
+    SKTexture *texture = [SKTexture textureWithImageNamed:[cookie highlightedSpriteName]];
+    self.selectionSprite.size = texture.size;
+    [self.selectionSprite runAction:[SKAction setTexture:texture]];
+    
+    [cookie.sprite addChild:self.selectionSprite];
+    self.selectionSprite.alpha = 1.0;
+}
+
+- (void)hideSelectionIndicator {
+    [self.selectionSprite runAction:[SKAction sequence:@[
+        [SKAction fadeOutWithDuration:0.3],
+        [SKAction removeFromParent]]]];
 }
 
 @end
