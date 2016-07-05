@@ -11,6 +11,7 @@
 		B34181031CD452C300BB5FC1 /* Tile.m in Sources */ = {isa = PBXBuildFile; fileRef = B34181021CD452C300BB5FC1 /* Tile.m */; };
 		B34181061CD4628300BB5FC1 /* Swap.m in Sources */ = {isa = PBXBuildFile; fileRef = B34181051CD4628300BB5FC1 /* Swap.m */; };
 		B34181081CD5313700BB5FC1 /* Sounds in Resources */ = {isa = PBXBuildFile; fileRef = B34181071CD5313700BB5FC1 /* Sounds */; };
+		B341810B1CD554E700BB5FC1 /* Chain.m in Sources */ = {isa = PBXBuildFile; fileRef = B341810A1CD554E700BB5FC1 /* Chain.m */; };
 		B3C022391CD2FB10003153B5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C022381CD2FB10003153B5 /* main.m */; };
 		B3C0223C1CD2FB10003153B5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C0223B1CD2FB10003153B5 /* AppDelegate.m */; };
 		B3C0223F1CD2FB10003153B5 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C0223E1CD2FB10003153B5 /* GameScene.m */; };
@@ -50,6 +51,8 @@
 		B34181041CD4628300BB5FC1 /* Swap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Swap.h; sourceTree = "<group>"; };
 		B34181051CD4628300BB5FC1 /* Swap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Swap.m; sourceTree = "<group>"; };
 		B34181071CD5313700BB5FC1 /* Sounds */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Sounds; sourceTree = "<group>"; };
+		B34181091CD554E700BB5FC1 /* Chain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chain.h; path = ../Chain.h; sourceTree = "<group>"; };
+		B341810A1CD554E700BB5FC1 /* Chain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Chain.m; path = ../Chain.m; sourceTree = "<group>"; };
 		B3C022341CD2FB10003153B5 /* CookieCrush.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookieCrush.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3C022381CD2FB10003153B5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B3C0223A1CD2FB10003153B5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 		B3C022361CD2FB10003153B5 /* CookieCrush */ = {
 			isa = PBXGroup;
 			children = (
+				B34181091CD554E700BB5FC1 /* Chain.h */,
+				B341810A1CD554E700BB5FC1 /* Chain.m */,
 				B3C0223A1CD2FB10003153B5 /* AppDelegate.h */,
 				B3C0223B1CD2FB10003153B5 /* AppDelegate.m */,
 				B3C022811CD3B854003153B5 /* Cookie.h */,
@@ -317,6 +322,7 @@
 				B3C0223F1CD2FB10003153B5 /* GameScene.m in Sources */,
 				B34181061CD4628300BB5FC1 /* Swap.m in Sources */,
 				B3C022391CD2FB10003153B5 /* main.m in Sources */,
+				B341810B1CD554E700BB5FC1 /* Chain.m in Sources */,
 				B34181031CD452C300BB5FC1 /* Tile.m in Sources */,
 				B3C022831CD3B854003153B5 /* Cookie.m in Sources */,
 			);

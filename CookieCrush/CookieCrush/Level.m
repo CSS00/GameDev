@@ -19,6 +19,143 @@
 Cookie *_cookies[NumColumns][NumRows];
 Tile *_tiles[NumColumns][NumRows];
 
+- (NSArray *)topUpCookies {
+    NSMutableArray *columns = [NSMutableArray array];
+    
+    NSUInteger cookieType = 0;
+    
+    for (NSInteger column = 0; column < NumColumns; column++) {
+        
+        NSMutableArray *array;
+        
+        // 1
+        for (NSInteger row = NumRows - 1; row >= 0 && _cookies[column][row] == nil; row--) {
+            
+            // 2
+            if (_tiles[column][row] != nil) {
+                
+                // 3
+                NSUInteger newCookieType;
+                do {
+                    newCookieType = arc4random_uniform(NumCookieTypes) + 1;
+                } while (newCookieType == cookieType);
+                cookieType = newCookieType;
+                
+                // 4
+                Cookie *cookie = [self createCookieAtColumn:column row:row withType:cookieType];
+                
+                // 5
+                if (array == nil) {
+                    array = [NSMutableArray array];
+                    [columns addObject:array];
+                }
+                [array addObject:cookie];
+            }
+        }
+    }
+    return columns;
+}
+
+- (NSArray *)fillHoles {
+    NSMutableArray *columns = [NSMutableArray array];
+    for (NSInteger column = 0; column < NumColumns; column++) {
+        NSMutableArray *array;
+        for (NSInteger row = 0; row < NumRows; row++) {
+            if (_tiles[column][row] != nil && _cookies[column][row] == nil) {
+                for (NSInteger lookup = row + 1; lookup < NumRows; lookup++) {
+                    Cookie *cookie = _cookies[column][lookup];
+                    if (cookie != nil) {
+                        _cookies[column][lookup] = nil;
+                        _cookies[column][row] = cookie;
+                        cookie.row = row;
+                        if (array == nil) {
+                            array = [NSMutableArray array];
+                            [columns addObject:array];
+                        }
+                        [array addObject:cookie];
+                        
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    return columns;
+}
+
+- (NSSet *)detectHorizontalMatches {
+    NSMutableSet *set = [NSMutableSet set];
+    
+    for (NSInteger row = 0; row < NumRows; row++) {
+        for (NSInteger column = 0; column < NumColumns - 2; ) {
+            if (_cookies[column][row] != nil) {
+                NSUInteger matchType = _cookies[column][row].cookieType;
+                
+                if (_cookies[column + 1][row].cookieType == matchType
+                    && _cookies[column + 2][row].cookieType == matchType) {
+                    Chain *chain = [[Chain alloc] init];
+                    chain.chainType = ChainTypeHorizontal;
+                    do {
+                        [chain addCookie:_cookies[column][row]];
+                        column += 1;
+                    } while (column < NumColumns && _cookies[column][row].cookieType == matchType);
+                    
+                    [set addObject:chain];
+                    continue;
+                }
+            }
+            column += 1;
+        }
+    }
+    return set;
+}
+
+- (NSSet *) detectVerticalMatches {
+    NSMutableSet *set = [NSMutableSet set];
+    
+    for (int column = 0; column < NumColumns; column++) {
+        for (int row = 0; row < NumRows - 2; ) {
+            if (_cookies[column][row] != nil) {
+                NSUInteger matchType = _cookies[column][row].cookieType;
+                if (_cookies[column][row + 1].cookieType == matchType
+                    && _cookies[column][row + 2].cookieType == matchType) {
+                    Chain *chain = [[Chain alloc] init];
+                    chain.chainType = ChainTypeVertical;
+                    do {
+                        [chain addCookie:_cookies[column][row]];
+                        row += 1;
+                    } while (row < NumRows && _cookies[column][row].cookieType == matchType);
+                    
+                    [set addObject:chain];
+                    continue;
+                }
+            }
+            row += 1;
+        }
+    }
+    return set;
+}
+
+- (NSSet *) removeMatches {
+    NSSet *horizontalChains = [self detectHorizontalMatches];
+    NSSet *verticalChains = [self detectVerticalMatches];
+    
+//    NSLog(@"Horizontal matches: %@", horizontalChains);
+//    NSLog(@"Vertical matches: %@", verticalChains);
+    [self removeCookies:horizontalChains];
+    [self removeCookies:verticalChains];
+    
+    return [horizontalChains setByAddingObjectsFromSet:verticalChains];
+}
+
+- (void)removeCookies:(NSSet *)chains {
+    for (Chain *chain in chains) {
+        for (Cookie *cookie in chain.cookies) {
+            _cookies[cookie.column][cookie.row] = nil;
+        }
+    }
+}
+
 - (Cookie *)cookieAtColumn:(NSInteger)column row:(NSInteger)row {
     NSAssert1(column >= 0 && column < NumColumns, @"Invalid column: %ld", (long)column);
     NSAssert1(row >= 0 && row < NumRows, @"Invalid row: %ld", (long)row);

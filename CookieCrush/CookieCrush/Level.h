@@ -9,11 +9,19 @@
 #import <Foundation/Foundation.h>
 #import "Cookie.h"
 #import "Tile.h"
+#import "Chain.h"
 
 static const NSInteger NumColumns = 9;
 static const NSInteger NumRows = 9;
 
 @interface Level : NSObject
+- (void)detectPossibleSwaps;
+
+- (NSArray *)topUpCookies;
+
+- (NSArray *)fillHoles;
+
+- (NSSet *)removeMatches;
 
 - (NSSet *)shuffle;
 
