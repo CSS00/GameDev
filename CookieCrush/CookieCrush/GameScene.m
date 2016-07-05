@@ -34,6 +34,30 @@ static const CGFloat TileHeight = 36.0;
 
 @implementation GameScene
 
+- (void)animateScoreForChain:(Chain *)chain {
+    // Figure out what the midpoint of the chain is.
+    Cookie *firstCookie = [chain.cookies firstObject];
+    Cookie *lastCookie = [chain.cookies lastObject];
+    CGPoint centerPosition = CGPointMake(
+                                         (firstCookie.sprite.position.x + lastCookie.sprite.position.x)/2,
+                                         (firstCookie.sprite.position.y + lastCookie.sprite.position.y)/2 - 8);
+    
+    // Add a label for the score that slowly floats up.
+    SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"GillSans-BoldItalic"];
+    scoreLabel.fontSize = 16;
+    scoreLabel.text = [NSString stringWithFormat:@"%lu", (long)chain.score];
+    scoreLabel.position = centerPosition;
+    scoreLabel.zPosition = 300;
+    [self.cookiesLayer addChild:scoreLabel];
+    
+    SKAction *moveAction = [SKAction moveBy:CGVectorMake(0, 3) duration:0.7];
+    moveAction.timingMode = SKActionTimingEaseOut;
+    [scoreLabel runAction:[SKAction sequence:@[
+                                               moveAction,
+                                               [SKAction removeFromParent]
+                                               ]]];
+}
+
 - (void)animateNewCookies:(NSArray *)columns completion:(dispatch_block_t)completion {
     // 1
     __block NSTimeInterval longestDuration = 0;
@@ -107,6 +131,7 @@ static const CGFloat TileHeight = 36.0;
 
 - (void)animateMatchedCookies:(NSSet *)chains completion:(dispatch_block_t)completion {
     for (Chain *chain in chains) {
+        [self animateScoreForChain:chain];
         for (Cookie *cookie in chain.cookies) {
             // 1
             if (cookie.sprite != nil) {
@@ -128,6 +153,7 @@ static const CGFloat TileHeight = 36.0;
 }
 
 - (void)preloadResources {
+    [SKLabelNode labelNodeWithFontNamed:@"GillSans-BoldItalic"];
     self.swapSound = [SKAction playSoundFileNamed:@"Sounds/Chomp.wav" waitForCompletion:NO];
     self.invalidSwapSound = [SKAction playSoundFileNamed:@"Sounds/Error.wav" waitForCompletion:NO];
     self.matchSound = [SKAction playSoundFileNamed:@"Sounds/Ka-Ching.wav" waitForCompletion:NO];

@@ -19,6 +19,12 @@
 Cookie *_cookies[NumColumns][NumRows];
 Tile *_tiles[NumColumns][NumRows];
 
+- (void)calculateScores:(NSSet *)chains {
+    for (Chain *chain in chains) {
+        chain.score = 60 * ([chain.cookies count] - 2);
+    }
+}
+
 - (NSArray *)topUpCookies {
     NSMutableArray *columns = [NSMutableArray array];
     
@@ -145,6 +151,9 @@ Tile *_tiles[NumColumns][NumRows];
     [self removeCookies:horizontalChains];
     [self removeCookies:verticalChains];
     
+    [self calculateScores:horizontalChains];
+    [self calculateScores:verticalChains];
+    
     return [horizontalChains setByAddingObjectsFromSet:verticalChains];
 }
 
@@ -258,6 +267,8 @@ Tile *_tiles[NumColumns][NumRows];
                 // If the value is 1, create a tile object.
                 if ([value integerValue] == 1) {
                     _tiles[column][tileRow] = [[Tile alloc] init];
+                    self.targetScore = [dictionary[@"targetScore"] unsignedIntegerValue];
+                    self.maximumMoves = [dictionary[@"moves"] unsignedIntegerValue];
                 }
             }];
         }];

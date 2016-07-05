@@ -15,6 +15,13 @@
 @property (strong, nonatomic) Level *level;
 @property (strong, nonatomic) GameScene *scene;
 
+@property (assign, nonatomic) NSUInteger movesLeft;
+@property (assign, nonatomic) NSUInteger score;
+
+@property (weak, nonatomic) IBOutlet UILabel *targetLabel;
+@property (weak, nonatomic) IBOutlet UILabel *movesLabel;
+@property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
+
 @end
 
 @implementation SKScene (Unarchive)
@@ -38,6 +45,12 @@
 
 @implementation GameViewController
 
+- (void)updateLabels {
+    self.targetLabel.text = [NSString stringWithFormat:@"%lu", (long)self.level.targetScore];
+    self.movesLabel.text = [NSString stringWithFormat:@"%lu", (long)self.movesLeft];
+    self.scoreLabel.text = [NSString stringWithFormat:@"%lu", (long)self.score];
+}
+
 - (void)beginNextTurn {
     [self.level detectPossibleSwaps];
     self.view.userInteractionEnabled = YES;
@@ -50,6 +63,12 @@
         return;
     }
     [self.scene animateMatchedCookies:chains completion:^{
+        
+        for (Chain *chain in chains) {
+            self.score += chain.score;
+        }
+        [self updateLabels];
+        
         NSArray *columns = [self.level fillHoles];
         [self.scene animateFallingCookies:columns completion:^{
             NSArray *columns = [self.level topUpCookies];
@@ -129,6 +148,9 @@
 }
 
 - (void)beginGame {
+    self.movesLeft = self.level.maximumMoves;
+    self.score = 0;
+    [self updateLabels];
     [self shuffle];
 }
 
