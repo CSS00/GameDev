@@ -9,6 +9,7 @@
 #import "GameViewController.h"
 #import "GameScene.h"
 #import "Level.h"
+@import AVFoundation;
 
 @interface GameViewController ()
 
@@ -26,6 +27,8 @@
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
 @property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
+
+@property (strong, nonatomic) AVAudioPlayer *backgroundMusic;
 
 
 @end
@@ -164,6 +167,13 @@
     
     // Present the scene.
     [skView presentScene:self.scene];
+    
+    // Play background music.
+    NSString *soundFilePath = [[NSBundle mainBundle] pathForResource:@"Sounds/MiningbyMoonlight" ofType:@"mp3"];
+    NSURL *soundFileURL = [NSURL fileURLWithPath:soundFilePath];
+    self.backgroundMusic = [[AVAudioPlayer alloc] initWithContentsOfURL:soundFileURL error:nil];
+    self.backgroundMusic.numberOfLoops = -1; //infinite
+    [self.backgroundMusic play];
     
     // Let's start the game!
     [self beginGame];
