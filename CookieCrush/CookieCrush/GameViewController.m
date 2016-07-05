@@ -25,6 +25,9 @@
 @property (weak, nonatomic) IBOutlet UIImageView *gameOverPanel;
 @property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
 
+@property (weak, nonatomic) IBOutlet UIButton *shuffleButton;
+
+
 @end
 
 @implementation SKScene (Unarchive)
@@ -48,8 +51,14 @@
 
 @implementation GameViewController
 
+- (IBAction)shuffleButtonPressed:(id)sender {
+    [self shuffle];
+    [self decrementMoves];
+}
+
 - (void)showGameOver {
     [self.scene animateGameOver];
+    self.shuffleButton.hidden = YES;
     self.gameOverPanel.hidden = NO;
     self.scene.userInteractionEnabled = NO;
     
@@ -62,6 +71,7 @@
     self.tapGestureRecognizer = nil;
     
     self.gameOverPanel.hidden = YES;
+    self.shuffleButton.hidden = NO;
     self.scene.userInteractionEnabled = YES;
     
     [self beginGame];
