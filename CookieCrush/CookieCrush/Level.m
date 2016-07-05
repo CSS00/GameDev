@@ -11,6 +11,7 @@
 @interface Level ()
 
 @property (strong, nonatomic) NSSet *possibleSwaps;
+@property (assign, nonatomic) NSUInteger comboMultiplier;
 
 @end
 
@@ -19,11 +20,15 @@
 Cookie *_cookies[NumColumns][NumRows];
 Tile *_tiles[NumColumns][NumRows];
 
+- (void)resetComboMultiplier {
+    self.comboMultiplier = 1;
+}
+
 - (void)calculateScores:(NSSet *)chains {
     for (Chain *chain in chains) {
-        chain.score = 60 * ([chain.cookies count] - 2);
-    }
-}
+        chain.score = 60 * ([chain.cookies count] - 2) * self.comboMultiplier;
+        self.comboMultiplier++;
+    }}
 
 - (NSArray *)topUpCookies {
     NSMutableArray *columns = [NSMutableArray array];

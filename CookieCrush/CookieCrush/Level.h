@@ -19,6 +19,8 @@ static const NSInteger NumRows = 9;
 @property (assign, nonatomic) NSUInteger targetScore;
 @property (assign, nonatomic) NSUInteger maximumMoves;
 
+- (void)resetComboMultiplier;
+
 - (void)detectPossibleSwaps;
 
 - (NSArray *)topUpCookies;

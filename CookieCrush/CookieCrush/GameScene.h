@@ -21,6 +21,12 @@
 @property (strong, nonatomic) Level *level;
 @property (copy, nonatomic) void (^swipeHandler)(Swap *swap);
 
+- (void)removeAllCookieSprites;
+
+- (void)animateGameOver;
+
+- (void)animateBeginGame;
+
 - (void)animateNewCookies:(NSArray *)columns completion:(dispatch_block_t)completion;
 
 - (void)animateFallingCookies:(NSArray *)columns completion:(dispatch_block_t)completion;

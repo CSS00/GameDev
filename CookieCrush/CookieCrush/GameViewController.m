@@ -22,6 +22,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *movesLabel;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 
+@property (weak, nonatomic) IBOutlet UIImageView *gameOverPanel;
+@property (strong, nonatomic) UITapGestureRecognizer *tapGestureRecognizer;
+
 @end
 
 @implementation SKScene (Unarchive)
@@ -45,6 +48,37 @@
 
 @implementation GameViewController
 
+- (void)showGameOver {
+    [self.scene animateGameOver];
+    self.gameOverPanel.hidden = NO;
+    self.scene.userInteractionEnabled = NO;
+    
+    self.tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideGameOver)];
+    [self.view addGestureRecognizer:self.tapGestureRecognizer];
+}
+
+- (void)hideGameOver {
+    [self.view removeGestureRecognizer:self.tapGestureRecognizer];
+    self.tapGestureRecognizer = nil;
+    
+    self.gameOverPanel.hidden = YES;
+    self.scene.userInteractionEnabled = YES;
+    
+    [self beginGame];
+}
+
+- (void)decrementMoves{
+    self.movesLeft--;
+    [self updateLabels];
+    if (self.score >= self.level.targetScore) {
+        self.gameOverPanel.image = [UIImage imageNamed:@"LevelComplete"];
+        [self showGameOver];
+    } else if (self.movesLeft == 0) {
+        self.gameOverPanel.image = [UIImage imageNamed:@"GameOver"];
+        [self showGameOver];
+    }
+}
+
 - (void)updateLabels {
     self.targetLabel.text = [NSString stringWithFormat:@"%lu", (long)self.level.targetScore];
     self.movesLabel.text = [NSString stringWithFormat:@"%lu", (long)self.movesLeft];
@@ -52,8 +86,10 @@
 }
 
 - (void)beginNextTurn {
+    [self.level resetComboMultiplier];
     [self.level detectPossibleSwaps];
     self.view.userInteractionEnabled = YES;
+    [self decrementMoves];
 }
 
 - (void)handleMatches {
@@ -81,6 +117,7 @@
 
 - (void)viewDidLoad
 {
+    self.gameOverPanel.hidden = YES;
     // my code starts here
     [super viewDidLoad];
     
@@ -151,10 +188,13 @@
     self.movesLeft = self.level.maximumMoves;
     self.score = 0;
     [self updateLabels];
+    [self.level resetComboMultiplier];
+    [self.scene animateBeginGame];
     [self shuffle];
 }
 
 - (void)shuffle {
+    [self.scene removeAllCookieSprites];
     NSSet *newCookies = [self.level shuffle];
     [self.scene addSpritesForCookies:newCookies];
 }

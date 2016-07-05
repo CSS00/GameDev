@@ -78,6 +78,13 @@
                                     <rect key="frame" x="221" y="57" width="80" height="21"/>
                                 </variation>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DCt-fb-LHs">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <animations/>
+                                <variation key="widthClass=compact" fixedFrame="YES">
+                                    <rect key="frame" x="0.0" y="209" width="320" height="150"/>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -89,6 +96,7 @@
                                 <exclude reference="w6v-iP-txd"/>
                                 <exclude reference="fvF-9O-GUt"/>
                                 <exclude reference="Ui4-EA-cR1"/>
+                                <exclude reference="DCt-fb-LHs"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -99,12 +107,14 @@
                                 <include reference="w6v-iP-txd"/>
                                 <include reference="fvF-9O-GUt"/>
                                 <include reference="Ui4-EA-cR1"/>
+                                <include reference="DCt-fb-LHs"/>
                             </mask>
                         </variation>
                     </view>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="gameOverPanel" destination="DCt-fb-LHs" id="3Wz-TJ-XXJ"/>
                         <outlet property="movesLabel" destination="w6v-iP-txd" id="HdB-fy-14R"/>
                         <outlet property="scoreLabel" destination="Ui4-EA-cR1" id="XTw-GX-FBK"/>
                         <outlet property="targetLabel" destination="ENR-1E-Zlr" id="v6d-k2-BSE"/>
